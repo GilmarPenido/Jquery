@@ -1,0 +1,69 @@
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Introdu&ccedil;&atilde;o ao jQuery</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/estilos.css">
+		<script src="jquery.js" ></script>
+		<script>
+		$(document).ready(function(){
+		
+			$('#botao-adiciona').click(function(){
+					var treinamento = $('#treinamento');
+					var nome = treinamento.val();
+					treinamento.val('');
+					var elemento = $('<li>').text(nome);
+					elemento.css({'color' : 'blue', 'background-color' : 'lightgrey'});
+					elemento.appendTo('#lista');
+			});
+				
+				$('#lista').on('dblclick', 'li', function (){
+					
+					$(this).animate({'margin-left':'+=200', 'font-size':'-=8'}, function(){
+						$(this).remove();
+					})
+				});
+				
+				$('#botao-carregar').click(function(){
+					/*$.ajax({
+						url:'http://mirrorfashion.caelum.com.br/treinamentos',
+						dataType: 'jsonp',
+						success: function (retorno){
+							$.each(retorno.treinamentos, function(){
+									
+								var treinamento = this;
+								var elemento = $('<li>').text(this.nome);
+								elemento.css('color' , 'green');
+								elemento.appendTo('#lista');
+							});*/
+							
+					$.get('http://mirrorfashion.caelum.com.br/treinamentos',function(retorno){
+							
+							$.each(retorno.treinamentos, function(){
+								var treinamento = this;
+								var elemento = $('<li>').text(treinamento.nome);
+								elemento.css('color' , 'green');
+								elemento.appendTo('#lista');
+							});
+					},'jsonp');
+				});
+		});		
+		</script>
+
+</head>
+<body class="container">
+    <h1>Treinamentos</h1>
+    <ul id="lista">
+        <li>L&oacute;gica de Programa&ccedil;&atilde;o</li>
+        <li>Dando os primeiros passos na web com HTML e CSS</li>
+        <li>Banco de dados e SQL</li>
+        <li>Ruby on Rails: do zero com deploy</li>
+        <li>NodeJS e Socket I/O</li>
+    </ul>
+    <label>Novo treinamento:</label>
+    <input id="treinamento">
+    <input id="botao-adiciona" type="button" value="adicionar"/>
+	<input id="botao-carregar" type="button" value="carregar"/>
+    
+</body>
+</html>

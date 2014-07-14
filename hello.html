@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<script src="jquery.js" ></script>
+		<script>
+			$(document).ready(function(){
+				
+				function copiar(){
+					var input = $('#novo_nome');
+					var nome = input.val();
+					input.val('');
+					input.focus();
+					$('#tag_h2').text(nome);
+				}
+				
+				
+				$('#alterar').click(function(){
+					copiar();	
+				});
+				
+				$('#novo_nome').blur(function(){
+					copiar();	
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<h2 id='tag_h2'>teste<h2>
+		<input type='text' id = 'novo_nome' />
+		<input type='button' id='alterar' value='alterar'>
+	</body>
+</html>
